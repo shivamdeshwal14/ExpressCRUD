@@ -23,6 +23,17 @@ app.get('/showuser/:id',(req,res)=>{
         res.json(result)
     })
 })
+// DELETE
+app.delete("/deleteuser/:id",(req,res)=>{
+    let id=req.params.id
+    let sql=`DELETE FROM employee WHERE id='${id}'`
+    db.query(sql,(err,result)=>{
+        if(err) throw err
+        else
+        res.json(result)
+    })
+})
+
 const PORT=process.env.PORT||3000
 app.listen(PORT,()=>{
     console.log(`SERVER IS RUNNING AT ${PORT}`)
