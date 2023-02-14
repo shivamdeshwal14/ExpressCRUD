@@ -3,7 +3,17 @@ const { resume } = require('./models/connections')
 const app=express()
 const db=require('./models/connections')
 app.use(express.json())
+// create user
+app.post("/adduser",(req,res)=>{
+    const user={name:req.body.name,email:req.body.email,city:req.body.city,phone:req.body.phone}
+    let sql="INSERT INTO `employee` SET ?"
+    db.query(sql,user,(err,result)=>{
+        if(err) throw err
+        else
+        res.json(result)
+    })
 
+})
 // show user
 app.get("/showuser",(req,res)=>{
     let sql="select * from`employee`"
@@ -34,7 +44,7 @@ app.delete("/deleteuser/:id",(req,res)=>{
     })
 })
 // update
-app.post('updateuser/:id',(req,res)=>{
+app.post('/updateuser/:id',(req,res)=>{
     let id=req.params.id
     const name =req.body.name
     const email=req.body.email
