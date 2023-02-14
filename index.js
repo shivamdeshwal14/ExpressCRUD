@@ -33,6 +33,22 @@ app.delete("/deleteuser/:id",(req,res)=>{
         res.json(result)
     })
 })
+// update
+app.post('updateuser/:id',(req,res)=>{
+    let id=req.params.id
+    const name =req.body.name
+    const email=req.body.email
+    const city=req.body.city
+    const phone=req.body.phone
+
+    let sql=`update employee SET name='${name}',phone='${phone}',email='${email}',city='${city}'`
+    db.query(sql,(err,result)=>{
+        if(err) throw err
+        else
+        res.json(result)
+    })
+})
+
 
 const PORT=process.env.PORT||3000
 app.listen(PORT,()=>{
