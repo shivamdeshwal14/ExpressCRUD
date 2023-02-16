@@ -8,8 +8,6 @@ app.use(express.urlencoded({extended:true}))
 app.engine('handlebars', engine());
 app.set('view engine', 'handlebars');
 app.set('views', './views');
-
-
 // default page
 app.get("/",(req,res )=>{
      res.render('home')
@@ -22,10 +20,10 @@ app.post("/adduser",(req,res)=>{
     db.query(sql,user,(err,result)=>{
         if(err) throw err
         else
-        res.json(result)
+        res.render('home')
     })
 })
-// show user
+// show  all user
 app.get("/showuser",(req,res)=>{
     let sql="select * from`employee`"
     db.query(sql,(err,result)=>{
@@ -38,7 +36,7 @@ app.get("/showuser",(req,res)=>{
         
     })
 })
-// show a particular use
+// show a particular user
 app. get('/showuser/:id',(req,res)=>{
    
     let sql="SELECT * FROM `employee`WHERE id="+req.params.id+""
@@ -48,36 +46,45 @@ app. get('/showuser/:id',(req,res)=>{
         res.json(result)
     })
 })
-// DELETE
+// DELETE  user
 app.get("/deleteuser/:id",(req,res)=>{
-   
+   console.log("hello");
     let id=req.params.id
     let sql=`DELETE FROM employee WHERE id='${id}'`
     db.query(sql,(err,result)=>{
         if(err) throw err
         else
-        res.json(result)
+        res.redirect('/showuser')
     })
 })
-// update
+// update user
 app.post('/updateuser/:id',(req,res)=>{
-   console.log(req.params.id); 
-    // const name =req.body.name
-    // const email=req.body.email
-    // const city=req.body.city
-    // const phone=req.body.phone
-
-    // let sql=`update employee SET name='${name}',phone='${phone}',email='${email}',city='${city}'`
-    // db.query(sql,(err,result)=>{
-    //     if(err) throw err
-    //     else
-    //     res.json(result)
-    // })
+    const id=req.params.id
+    const name =req.body.name
+    const email=req.body.email
+    const city=req.body.city
+    const phone=req.body.phone
+    let sql=`update employee SET name='${name}',phone='${phone}',email='${email}',city='${city}' where id=${id}`
+    db.query(sql,(err,result)=>{
+        if(err) throw err
+        else
+         res.redirect("/showuser")
+    })
 })
+//edit
+app.get('/edituser/:id',(req,res)=>{
+   
+    let sql="SELECT * FROM `employee`WHERE id="+req.params.id+""
+    db.query(sql,(err,result)=>{
+        if(err) throw err
+        else
+        res.render('edituser',({list:result}))
+        
+    })
 
-
-
+})
 const PORT=process.env.PORT||3000
 app.listen(PORT,()=>{
-    console.log(`SERVER IS RUNNING AT ${PORT}`)
+    
+  console.log("server is running");
 }) 
