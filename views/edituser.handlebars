@@ -1,0 +1,49 @@
+<div class="container">
+    {{#each list}}
+<form  method="post" action="http://localhost:3000/updateuser/{{this.id}}">
+ 
+  <fieldset>
+    <legend>Add Employee</legend>
+     <div class="form-group row">
+        
+      <label for="staticEmail" class="col-sm-2 col-form-label">ID</label>
+      <div class="col-sm-10">
+        <input type="text" readonly="" value="{{this.id}}"  name="id" class="form-control" id="staticEmail" >
+      </div>
+    </div>
+    <br>
+     <div class="form-group row">
+      <label for="staticEmail" class="col-sm-2 col-form-label">Name</label>
+      <div class="col-sm-10">
+        <input type="text" value="{{this.name}}"   name="name" class="form-control" id="staticEmail" >
+      </div>
+    </div>
+    <br>
+     <div class="form-group row">
+      <label for="staticEmail" class="col-sm-2 col-form-label">Phone</label>
+      <div class="col-sm-10">
+        <input type="text"   name="phone" value="{{this.phone}}" class="form-control" id="staticEmail" >
+      </div>
+    </div>
+    <br>
+     <div class="form-group row">
+      <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
+      <div class="col-sm-10">
+        <input type="text"  name="email" value="{{this.email}}" class="form-control" id="staticEmail" >
+      </div>
+    </div>
+    <br>
+    <div class="form-group row">
+      <label for="staticEmail" class="col-sm-2 col-form-label">City</label>
+      <div class="col-sm-10">
+        <input type="text"  name="city" value="{{this.city}}" class="form-control" id="staticEmail" >
+      </div>
+    </div> 
+    <br>
+    <button type="submit" class="btn btn-primary">Update User</button>
+  </fieldset>
+  <br>
+  </form>
+  {{/each}}
+</div>
+
