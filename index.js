@@ -1,4 +1,5 @@
 const express=require('express')
+
 const { resume } = require('./models/connections')
 const app=express()
 const engine=require('express-handlebars').engine   
@@ -8,9 +9,12 @@ app.use(express.urlencoded({extended:true}))
 app.engine('handlebars', engine());
 app.set('view engine', 'handlebars');
 app.set('views', './views');
+
+
 // default page
 app.get("/",(req,res )=>{
      res.render('home')
+     showmsg()
 })
 //    create user
 app.post("/adduser",(req,res)=>{
@@ -32,7 +36,7 @@ app.get("/showuser",(req,res)=>{
         {
             
             res.render('show',({list:result}))
-        }
+        } 
         
     })
 })
